@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-: ${DOTNET_RUNTIME_VERSION:="1.1.0"}
-: ${DOTNET_SDK_VERSION:="1.0.3"}
+: ${DOTNET_RUNTIME_VERSION:="2.0.0-preview2"}
+: ${DOTNET_SDK_VERSION:="2.0.0-preview2"}
 
 
 # Install .NET Core
@@ -9,7 +9,7 @@ DOTNET_CACHE_LOCATION=${CACHE_DIR}/dotnet/${DOTNET_SDK_VERSION}
 if [ ! -d ${DOTNET_CACHE_LOCATION} ]; then
 	rm -rf ${CACHE_DIR}/dotnet/* || true
 	mkdir -p ${DOTNET_CACHE_LOCATION}/{sdk,runtime}
-	DOTNET_SDK_DOWNLOAD_URL=https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-dev-ubuntu-x64.$DOTNET_SDK_VERSION.tar.gz
+	DOTNET_SDK_DOWNLOAD_URL=https://download.microsoft.com/download/F/A/A/FAAE9280-F410-458E-8819-279C5A68EDCF/dotnet-sdk-2.0.0-preview2-006497-linux-x64.tar.gz
 	
 	echo "Downloading .NET SDK version ${DOTNET_SDK_VERSION} and runtime version ${DOTNET_RUNTIME_VERSION} from ${DOTNET_SDK_DOWNLOAD_URL}"
 
@@ -17,7 +17,7 @@ if [ ! -d ${DOTNET_CACHE_LOCATION} ]; then
 	find ${DOTNET_CACHE_LOCATION}/sdk/sdk/${DOTNET_SDK_VERSION}/runtimes/* -maxdepth 0 ! -name unix ! -name any -exec rm -r {} +
 	rm -f ${DOTNET_CACHE_LOCATION}/sdk/sdk/${DOTNET_SDK_VERSION}/nuGetPackagesArchive.lzma
 
-	DOTNET_RUNTIME_DOWNLOAD_URL=https://dotnetcli.blob.core.windows.net/dotnet/release/1.1.0/Binaries/$DOTNET_RUNTIME_VERSION/dotnet-ubuntu-x64.$DOTNET_RUNTIME_VERSION.tar.gz
+	DOTNET_RUNTIME_DOWNLOAD_URL=https://download.microsoft.com/download/8/5/8/85896F6E-C7F5-4ECA-ADF7-CCE8EFAD9AA6/dotnet-runtime-2.0.0-preview2-25407-01-linux-x64.tar.gz
 	curl --progress-bar ${DOTNET_RUNTIME_DOWNLOAD_URL} | tar xz -C ${DOTNET_CACHE_LOCATION}/runtime
 fi
 export PATH="${DOTNET_CACHE_LOCATION}/sdk:$PATH"
